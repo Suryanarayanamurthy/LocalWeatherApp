@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html>
-    <head>
+<html ng-app ="wApp">
+    <head >
+        <!-- google cds for Ajs 1.5 version -->
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.2/angular.min.js"></script>-->
+        
         <!-- using angular 1.5 beta 2.0 version -->
-        <script src="src/vendor/angular.min.js"></script>
+         <script src="src/vendor/angular.min.js"></script> 
         <script src="src/weatherApp.js"></script>
         <!-- bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/myStyle.css">
     </head>
-    <body>
-        
+    <body ng-controller ="weatherController" >
+        <div >
+            <h1>{{test}}</h1>
+        </div>
     </body>
 </html>
