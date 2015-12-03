@@ -1,19 +1,30 @@
 
 var app = angular.module('wApp', []);
-var mysrclat= 0; var mysrclong = 0;
+var mysrclat = 0;
+var mysrclong = 0;
 
-app.controller('weatherController', function($scope){
+app.controller('weatherController', function ($scope) {
     $scope.test = "Hello Ajs-1.5";
 
-  $scope.nearme = function($scope) {
+  
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-
-                mysrclat = position.coords.latitude; 
-                mysrclong = position.coords.longitude;
+            mysrclat = position.coords.latitude;
+            mysrclong = position.coords.longitude;
+            $scope.lat = mysrclat;
+            $scope.long = mysrclong;
         });
-        console.log(mysrclat);
-        console.log(mysrclong);
     }
-}
+    
+//     if (navigator.geolocation) {
+//        navigator.geolocation.getCurrentPosition(function (position) {
+//
+//                mysrclat = position.coords.latitude; 
+//                mysrclong = position.coords.longitude;
+//                console.log(mysrclat);
+//                console.log(mysrclong);
+//        });
+//        
+//    }
+
 });
