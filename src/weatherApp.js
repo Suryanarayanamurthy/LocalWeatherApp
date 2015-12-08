@@ -15,5 +15,17 @@ app.controller('weatherController', function ($scope) {
             console.log(mysrclong);
         });
     }
+      function YahooWeatherAPI()
+    {
+        $http.get(url).then(function(response) {
+  $scope.response = angular.toJson(response.data);
+            console.log(response.data);
+}).catch(function(response) {
+  $scope.response = response;
+            console.log(response);
+});
+    }
+    
+    
     
 });
