@@ -50,8 +50,8 @@ var yql_query = "SELECT * from geo.places WHERE text='SFO'";
     function getYahooUrl(lat,long)
     {
 //var url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%22"+lat+"%2C"+long+"%22%20and%20gflags%3D%22R%22)&format=json&diagnostics=true&callback=JSON_CALLBACK";
-        var url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%2252.4849956%2C13.4379836%22%20and%20gflags%3D%22R%22)&format=json&callback=JSON_CALLBACK";
-        var url = 
+        var url =  "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%2252.4849956%2C13.4379836%22%20and%20gflags%3D%22R%22)&format=json&callback=JSON_CALLBACK";
+        var url = yql_base_uri
         return url;
     
     }
