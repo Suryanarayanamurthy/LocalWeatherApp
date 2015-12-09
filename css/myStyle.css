@@ -1,0 +1,13 @@
+body {
+  padding: 10px;
+}
+
+a {
+  cursor: pointer;
+}
+
+
+.forecast-img {
+  margin-right: 10px;
+  width: 45px;
+}
