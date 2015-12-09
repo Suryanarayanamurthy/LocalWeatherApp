@@ -2,11 +2,13 @@
     var app = angular.module('wApp', []);
     app.controller('weatherController', ['$scope', 'weatherService','$q', function ($scope, weatherService,$q) {
     $scope.message = "";
+    var promise = asyncGetLocation();
+        fetchWeather();
     $scope.getLocalWeather = function(){
         //currentLocationService.getCurrentLocation();
         fetchWeather();
     }
-
+ 
     function fetchWeather() {
 var promise = asyncGetLocation();        
     promise.then(function(position) {
