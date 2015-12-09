@@ -1,111 +1,48 @@
 
-var app = angular.module('wApp', []);
-
-
-app.controller('weatherController', ['$scope', 'weatherService', function ($scope, weatherService) {
+    var app = angular.module('wApp', []);
+    app.controller('weatherController', ['$scope', 'weatherService', function ($scope, weatherService) {
     var mysrclat = 0;
-var mysrclong = 0;
+    var mysrclong = 0;
     $scope.getLocalWeather = function(){
-         $scope.place = '';
-        getCurrentLocation();
-        if(mysrclat !== 0 && mysrclong !== 0)
+
+    getCurrentLocation();
+    if(mysrclat !== 0 && mysrclong !== 0)
     fetchWeather(mysrclat,mysrclong);
     }
-    
-  function fetchWeather(lat,long) {
+
+    function fetchWeather(lat,long) {
     weatherService.getWeather(lat,long).then(function(data){
-      $scope.place = data;
+    $scope.place = data;
     }); 
-  }
+    }
     fetchWeather(52.4851659,13.4383258);
     function getCurrentLocation(){
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            mysrclat = position.coords.latitude;
-            mysrclong = position.coords.longitude;
-            console.log(mysrclat);
-            console.log(mysrclong);
-        });
+    navigator.geolocation.getCurrentPosition(function (position) {
+    mysrclat = position.coords.latitude;
+    mysrclong = position.coords.longitude;
+    console.log(mysrclat);
+    console.log(mysrclong);
+    });
     }
     }
-    
-    // Base URI for Web service  
+    }]);
 
-  
-// Create a variable to make results available  
-// in the global namespace  
-var yql_results = "";  
-  
-// Create a YQL query to get geo data for the  
-// San Francisco International Airport  
-//    select * from weather.forecast where woeid in (SELECT woeid FROM geo.placefinder WHERE text="52.4849956,13.4379836" and gflags="R")
-
-    
-    // This utility function creates the query string  
-// to be appended to the base URI of the YQL Web  
-// service.  
-function toQueryString(obj) {      
-  var parts = [];      
-  for(var each in obj) if (obj.hasOwnProperty(each)) {  
-    parts.push(encodeURIComponent(each) + '=' + encodeURIComponent(obj[each]));      
-  }      
-  return parts.join('&');    
-}
-//    function fixedEncodeURIComponent(str){
-//        return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, "%2A").replace(/\"/g, "%22");
-//        
-//    };
-//   
-    
-    function getYahooUrl(lat,long)
-    {
-//var url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%22"+lat+"%2C"+long+"%22%20and%20gflags%3D%22R%22)&format=json&diagnostics=true&callback=JSON_CALLBACK";
-//        var url =  "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%2252.4849956%2C13.4379836%22%20and%20gflags%3D%22R%22)&format=json&callback=JSON_CALLBACK";
-        
-        
-        
-        var query = "select * from weather.forecast where woeid in (SELECT woeid FROM geo.placefinder WHERE text= '"+lat+"','"+long+"' and gflags='R')";
-var format = "&format=json&callback=";
-var yql_base_uri = "https://query.yahooapis.com/v1/public/yql?q=";  
-        //var url = yql_base_uri+ query +format;
-        var url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%22"+lat+"%2C"+long+"%22%20and%20gflags%3D%22R%22)&format=json&callback="
-        console.log(url);
-        return url;
-    
-    }
-      function YahooWeatherAPI()
-    {
-        getCurrentLocation();
-        var url = getYahooUrl(mysrclat,mysrclong);
-        console.log(url);
-        $http.get(url).then(function(response) {
-  //$scope.response = angular.toJson(response.data);
-            console.log(angular.toJson(response.data));
-}).catch(function(response) {
-  //$scope.response = response;
-            console.log(response);
-});
-    }
-    
-    
-    
-}]);
-
-app.factory('weatherService', ['$http', '$q', function ($http, $q){
-  function getWeather (lat,long) {
+    app.factory('weatherService', ['$http', '$q', function ($http, $q){
+    function getWeather (lat,long) {
     var deferred = $q.defer();
     $http.get("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%22"+lat+"%2C"+long+"%22%20and%20gflags%3D%22R%22)&format=json&callback=")
-      .success(function(data){
-        deferred.resolve(data.query.results.channel);
-      })
-      .error(function(err){
-        console.log('Error retrieving markets');
-        deferred.reject(err);
-      });
+    .success(function(data){
+    deferred.resolve(data.query.results.channel);
+    })
+    .error(function(err){
+    console.log('Error retrieving markets');
+    deferred.reject(err);
+    });
     return deferred.promise;
-  }
-  
-  return {
+    }
+
+    return {
     getWeather: getWeather
-  };
-}]);
+    };
+    }]);
