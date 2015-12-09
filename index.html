@@ -13,7 +13,8 @@
     </head>
     <body ng-controller ="weatherController" >
         <div >
-            <button ng-click="getLocalWeather()">Get Local Weather</button>            
+            <button ng-click="getLocalWeather()">Get Local Weather</button>
+            <h1>{{message}}</h1>
         </div>
          <div>
       <h1>Forecast For {{ place.location.city }}</h1>
