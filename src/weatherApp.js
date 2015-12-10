@@ -3,11 +3,16 @@
     app.controller('weatherController', ['$scope', 'weatherService','$q', function ($scope, weatherService,$q) {
     $scope.message = "";
     var promise = asyncGetLocation();
+        //call the initial fetch when the page loads.
         fetchWeather();
-    $scope.getLocalWeather = function(){
-        //currentLocationService.getCurrentLocation();
-        fetchWeather();
-    }
+
+// button to call the fetch weather again, uncomment below code and the button in html, this is mainly used during development for
+// explesitily calling the fetch button.// there is no point clicking the button in the actual app bcos the app will do a fetch when the user
+// opens the app.
+//    $scope.getLocalWeather = function(){
+//        //currentLocationService.getCurrentLocation();
+//        fetchWeather();
+//    }
  
     function fetchWeather() {
 var promise = asyncGetLocation();        
@@ -26,7 +31,7 @@ var promise = asyncGetLocation();
     }); 
     }
             
-        function asyncGetLocation() {
+    function asyncGetLocation() {
   // perform some asynchronous operation, resolve or reject the promise when appropriate.
   return $q(function(resolve, reject) {
     setTimeout(function() {
@@ -50,8 +55,6 @@ var promise = asyncGetLocation();
     }, 1000);
   });
 }
-
-   
 }]);
 
     app.factory('weatherService', ['$http', '$q', function ($http, $q){
@@ -74,24 +77,3 @@ var promise = asyncGetLocation();
     getWeather: getWeather
     };
     }]);
-
-
-
-//app.factory('currentLocationService',function(currentLocationService,$q){
-//    
-//    if (navigator.geolocation) {
-//    navigator.geolocation.getCurrentPosition(function (coords) {
-//        return
-//    {
-//        coords: coords
-//    };
-////        coords = {
-////         lat : position.coords.latitude,
-////         long : position.coords.longitude
-////        }
-//    });
-//    }
-//    
-//});
-
-
