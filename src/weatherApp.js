@@ -62,13 +62,20 @@ function asyncGetLocation() {
 }
 }]);
 
+//https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%2252.4849956%2C13.4379836%22%20and%20gflags%3D%22R%22)%20and%20u%20%3D%20'c'&format=json&callback=
+
+//"https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%22"+lat+"%2C"+long+"%22%20and%20gflags%3D%22R%22)%20and%20u%20%3D%20'c'&format=json&callback=")
+
+//"https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%22"+lat+"%2C"+long+"%22%20and%20gflags%3D%22R%22)&format=json&callback=")
+
+//select * from weather.forecast where woeid in (SELECT woeid FROM geo.placefinder WHERE text="52.4849956,13.4379836" and gflags="R") and u = 'c'
 // once we have the lat and long of the user, get the jason object by calling yql query:
 // "select * from weather.forecast where woeid in (SELECT woeid FROM geo.placefinder WHERE text="52.4849956,13.4379836" and gflags="R")",
 //(offcoarse the lat and long is substituded with the newly obtained, lat and long dynamically).
     app.factory('weatherService', ['$http', '$q', function ($http, $q){
     function getWeather (lat,long) {
     var deferred = $q.defer();
-    $http.get("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%22"+lat+"%2C"+long+"%22%20and%20gflags%3D%22R%22)&format=json&callback=").success(function(data){
+    $http.get("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%22"+lat+"%2C"+long+"%22%20and%20gflags%3D%22R%22)%20and%20u%20%3D%20'c'&format=json&callback=").success(function(data){
     deferred.resolve(data.query.results.channel);
     }).error(function(err){
     console.log('Error retrieving markets');
