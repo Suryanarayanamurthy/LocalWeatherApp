@@ -1,8 +1,10 @@
 
     var app = angular.module('wApp', []);
+    //using the service(factory directive) "weather service", to use the yahoo api for weather.
     app.controller('weatherController', ['$scope', 'weatherService','$q', function ($scope, weatherService,$q) {
     $scope.message = "";
-    var promise = asyncGetLocation();
+        // using a promise variable to get the location coordenates asyncronesly.
+        var promise = asyncGetLocation();
         //call the initial fetch when the page loads.
         fetchWeather();
 
@@ -14,11 +16,14 @@
 //        fetchWeather();
 //    }
  
+        // get the users location asyncronasly if resolved then use the weather service to get the json object for weather info and putin the
+// variable $scope.place.  
     function fetchWeather() {
-var promise = asyncGetLocation();        
+    var promise = asyncGetLocation();        
     promise.then(function(position) {
     
    var latlon = position.lat + "," + position.long;
+        //get the image url on google maps.
     var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="
     +latlon+"&zoom=14&size=400x300&sensor=false";
         console.log("after promise return"+position.lat+" "+position.long);
@@ -30,9 +35,9 @@ var promise = asyncGetLocation();
 });
     }); 
     }
-            
-    function asyncGetLocation() {
-  // perform some asynchronous operation, resolve or reject the promise when appropriate.
+
+// perform asynchronous get cordenates from browser, resolve or reject the promise when appropriate.
+function asyncGetLocation() {
   return $q(function(resolve, reject) {
     setTimeout(function() {
         var coord = { lat:""  ,
@@ -57,11 +62,11 @@ var promise = asyncGetLocation();
 }
 }]);
 
+// once we have the lat and long of the user, get the jason object by calling yql query:
+// "select * from weather.forecast where woeid in (SELECT woeid FROM geo.placefinder WHERE text="52.4849956,13.4379836" and gflags="R")",
+//(offcoarse the lat and long is substituded with the newly obtained, lat and long dynamically).
     app.factory('weatherService', ['$http', '$q', function ($http, $q){
-        
     function getWeather (lat,long) {
-//        var lat = currentLocationService.coords.position.coords.latitude;
-//        var long = currentLocationService.coords.position.coords.longitude;
     var deferred = $q.defer();
     $http.get("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.placefinder%20WHERE%20text%3D%22"+lat+"%2C"+long+"%22%20and%20gflags%3D%22R%22)&format=json&callback=").success(function(data){
     deferred.resolve(data.query.results.channel);
@@ -71,8 +76,6 @@ var promise = asyncGetLocation();
     });
     return deferred.promise;
     }
-            
-
     return {
     getWeather: getWeather
     };
