@@ -1,4 +1,7 @@
 # LocalWeatherApp
 shows local weather app.
-using Angular.JS(1.5-2.0beta version), yahoo's yql restful apito get weather info, using google maps to display location.
+using Angular.JS(1.5-2.0beta version),
+using yahoo's yql restful api to get weather info,
+using google maps to display location.
+
 http://codepen.io/Suryanarayanamurthy/full/YymbNQ/
